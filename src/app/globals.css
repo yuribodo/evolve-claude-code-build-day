@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: #070a06;
+  --color-soil: #0e130c;
+  --color-soil-2: #151c12;
+  --color-soil-3: #1c261a;
+  --color-moss: #2b3a26;
+  --color-moss-2: #3d5233;
+  --color-fern: #7bc96f;
+  --color-fern-2: #a8e08c;
+  --color-bone: #e6e9d8;
+  --color-parchment: #cdd3bd;
+  --color-ash: #8a937f;
+  --color-amber: #e8b04a;
+  --color-amber-2: #f5cf7a;
+  --color-ember: #d9534f;
+  --color-river: #4f8fc0;
+  --color-violet: #9d7be0;
+  --font-pixel: var(--font-press-start);
+  --font-terminal: var(--font-vt323);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-terminal), monospace;
+  font-size: 18px;
+  line-height: 1.15;
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(123, 201, 111, 0.06), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 3px);
+}
+
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-ink);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-moss-2) transparent;
+}
+
+@utility font-pixel {
+  font-family: var(--font-pixel), monospace;
+}
+
+@utility font-terminal {
+  font-family: var(--font-terminal), monospace;
+}
+
+/* Pixel-style bevelled frame drawn with hard-edged shadows. */
+@utility pixel-frame {
+  border: 2px solid var(--color-moss-2);
+  box-shadow:
+    inset 0 0 0 2px var(--color-soil),
+    inset 0 0 0 3px var(--color-moss),
+    0 0 0 2px var(--color-ink);
+  background: var(--color-soil-2);
+}
+
+@utility pixel-frame-amber {
+  border: 2px solid var(--color-amber);
+  box-shadow:
+    inset 0 0 0 2px var(--color-soil),
+    inset 0 0 0 3px #6a4d1c,
+    0 0 0 2px var(--color-ink);
+  background: var(--color-soil-2);
+}
+
+@utility pixel-btn {
+  border: 2px solid var(--color-moss-2);
+  background: var(--color-soil-3);
+  box-shadow:
+    inset -2px -2px 0 0 var(--color-soil),
+    inset 2px 2px 0 0 #4b6440;
+  transition:
+    transform 80ms steps(2),
+    background-color 120ms linear,
+    box-shadow 80ms linear;
+}
+
+@utility pixel-btn-pressed {
+  box-shadow:
+    inset 2px 2px 0 0 var(--color-soil),
+    inset -2px -2px 0 0 #4b6440;
+  transform: translateY(1px);
+}
+
+@utility text-glow-fern {
+  text-shadow: 0 0 6px rgba(123, 201, 111, 0.55);
+}
+
+@utility text-glow-amber {
+  text-shadow: 0 0 8px rgba(232, 176, 74, 0.6);
+}
+
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.13) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@utility animate-blink {
+  animation: blink 1.2s steps(1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 1.4s ease-out infinite;
 }
